@@ -9,20 +9,22 @@
         // Create Howl instances for both audio files
         var audio1 = new Howl({
             src: ['https://theprojectofficial.github.io/stuff/nnintro.ogg'],
+            volume: 0.7, // Set volume to 0.7
             onend: function() {
                 // When audio1 finishes, play audio2
                 audio2.play();
             }
         });
-
+        
         var audio2 = new Howl({
             src: ['https://theprojectofficial.github.io/stuff/nnloop.ogg'],
+            volume: 0.7, // Set volume to 0.7
             onend: function() {
                 // When audio2 finishes, restart audio1
                 audio1.play();
             }
         });
-
+        
         // Start the loop by playing audio1
         audio1.play();
     </script>
@@ -321,7 +323,7 @@
 
     <script>
         // Set the target date for the countdown (example: 2025, March 5th, 12:00:00)
-        const targetDate = new Date("March 1, 2025 19:37:00").getTime();
+        const targetDate = new Date("March 1, 2025 20:00:00").getTime();
         
         // Update the countdown every 10 milliseconds
         const timerInterval = setInterval(function() {
