@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <title>CONNECT</title>
+    <script>
+        // Create Howl instances for both audio files
+        var audio1 = new Howl({
+            src: ['https://theprojectofficial.github.io/stuff/nnintro.ogg'],
+            onend: function() {
+                // When audio1 finishes, play audio2
+                audio2.play();
+            }
+        });
+
+        var audio2 = new Howl({
+            src: ['https://theprojectofficial.github.io/stuff/nnloop.ogg'],
+            onend: function() {
+                // When audio2 finishes, restart audio1
+                audio1.play();
+            }
+        });
+
+        // Start the loop by playing audio1
+        audio1.play();
+    </script>
+    <style>
+        @font-face {
+            font-family: "Heading";
+            src: url(res/fonts/abr.ttf);
+        }
+        @font-face {
+            font-family: "ABR";
+            src: url(res/fonts/abr.ttf);
+        }
+
+        body {
+            background: linear-gradient(180deg, #000, #300);
+            font-family: "ABR", sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #colorlay {
+            position: fixed;
+            left: -200%;
+            top: -200%;
+            right: -200%;
+            bottom: -200%;
+            z-index: 100000;
+            background: linear-gradient(0deg, #F20 35%, #F10 40%, #C01 45%, #F00 50%, #D10 55%, #E02 60%, #F20 65%);
+            mix-blend-mode: multiply;
+            pointer-events: none;
+            animation: 3s rot linear infinite;
+        }
+
+        @keyframes rot {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #starfield { 
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            opacity: 0;
+        }
+
+        .active #starfield {
+            opacity: 1;
+            transition: 2s 0.7s opacity;
+        }
+
+        #timeblock {
+            background-color: rgba(30,30,30,0.4);
+            display: block;
+            width: 49vw;
+            margin-top: -0.315vw;
+            box-shadow: 0px 0px 64px rgba(255,255,255,0.7);
+            border: 0.2vw solid #FFF;
+            transform: translateY(100vh); /* Initially off-screen */
+            transition: transform 1s ease-in-out;
+            display: flex;
+            flex-direction: column-reverse; /* Moves .stack above #counter */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .active #timeblock {
+            transform: translateY(0); /* Bring it into view */
+        }
+
+        #addendum {
+            background-color: #FFF;
+            color: #000;
+            text-align: center;
+            display: block;
+            width: 48.9vw;
+            margin-top: -1.25vw;
+            box-shadow: 0px 0px 64px rgba(255,255,255,0.7);
+            font-family: ABR;
+            padding: 0 0.25vw;
+            font-size: 1vw;
+            transform: translateY(100vh); /* Initially off-screen */
+            transition: transform 1s ease-in-out;
+        }
+
+        .active #addendum {
+            transform: translateY(0); /* Bring it into view */
+        }
+
+        .stack {
+            position: absolute;
+            box-shadow: 0px 0px 64px rgba(255,255,255,0.7);
+            font-size: 2vw;
+            color: #F00;
+            border: 0.2vw solid #FFF;
+            width: 100%;
+            top: -3.55vw; /* Adjust this value to move it above */
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: left;
+        }
+
+        .stack2 {
+            position: absolute;
+            box-shadow: 0px 0px 64px rgba(255,255,255,0.7);
+            font-size: 2vw;
+            color: #F00;
+            border: 0.2vw solid #FFF;
+            width: 100%;
+            top: -7.9vw; /* Adjust this value to move it above */
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: left;
+        }
+
+        .booting .stack {
+            opacity: 1;
+            transition: 0.5s opacity;
+        }
+
+        #counter {
+            font-family: ABR;
+            text-align: center;
+            font-size: 12vw;
+            color: #FAFAFA;
+            z-index: 1;
+            margin: 2vw 0;
+            margin-top: 0;
+            animation: ShadowMoveLoop 9.5s linear alternate infinite;
+        }
+
+        @keyframes ShadowMoveLoop {
+            0%   { text-shadow: -8px -12px 16px rgba(255,255,255, 0.2), 3px 9px 8px rgba(255,255,255, 0.2), -14px 8px 13px rgba(255,255,255, 0.2), 9px -2px 5px rgba(255,255,255, 0.2); }
+            10%  { text-shadow: -2px -16px 16px rgba(255,255,255, 0.2), 6px 2px 8px rgba(255,255,255, 0.2), -12px 5px 13px rgba(255,255,255, 0.2), 7px -8px 5px rgba(255,255,255, 0.2); }
+            20%  { text-shadow: -6px -12px 16px rgba(255,255,255, 0.2), 3px 4px 8px rgba(255,255,255, 0.2), -09px 4px 13px rgba(255,255,255, 0.2), 4px -6px 5px rgba(255,255,255, 0.2); }
+            30%  { text-shadow: -4px -17px 16px rgba(255,255,255, 0.2), 7px 6px 8px rgba(1,1,1, 0.2), -17px 2px 13px rgba(255,255,255, 0.2), 2px -4px 5px rgba(255,255,255, 0.2); }
+            40%  { text-shadow: -9px -13px 16px rgba(255,255,255, 0.2), 8px 3px 8px rgba(255,255,255, 0.2), -14px 6px 13px rgba(255,255,255, 0.2), 8px -9px 5px rgba(255,255,255, 0.2); }
+            50%  { text-shadow: -2px -16px 16px rgba(255,255,255, 0.2), 3px 7px 8px rgba(255,255,255, 0.2), -19px 3px 13px rgba(255,255,255, 0.2), 4px -5px 5px rgba(255,255,255, 0.2); }
+            60%  { text-shadow: -3px -13px 16px rgba(255,255,255, 0.2), 2px 4px 8px rgba(255,255,255, 0.2), -14px 7px 13px rgba(255,255,255, 0.2), 8px -4px 5px rgba(255,255,255, 0.2); }
+            70%  { text-shadow: -4px -18px 16px rgba(1,1,1, 0.2), 9px 6px 8px rgba(255,255,255, 0.2), -12px 9px 13px rgba(255,255,255, 0.2), 4px -8px 5px rgba(255,255,255, 0.2); }
+            80%  { text-shadow: -2px -13px 16px rgba(255,255,255, 0.2), 5px 2px 8px rgba(255,255,255, 0.2), -16px 4px 13px rgba(255,255,255, 0.2), 9px -3px 5px rgba(255,255,255, 0.2); }
+            90%  { text-shadow: -5px -14px 16px rgba(255,255,255, 0.2), 3px 7px 8px rgba(255,255,255, 0.2), -13px 8px 13px rgba(255,255,255, 0.2), 3px -1px 5px rgba(255,255,255, 0.2); }
+            100% { text-shadow: -7px -17px 16px rgba(255,255,255, 0.2), 0px 4px 8px rgba(255,255,255, 0.2), -11px 3px 13px rgba(1,1,1, 0.2), 6px -6px 5px rgba(255,255,255, 0.2); }
+        }
+
+        #minutes, #seconds, #ms {
+            font-size: 11vw;
+        }
+
+        #minutes {
+            font-size: 11vw;
+        }
+
+        #seconds {
+            color: transparent;
+            -webkit-text-stroke: 0.2vw #FAFAFA; 
+            text-stroke: 0.2vw #FAFAFA;
+            font-size: 11.7vw;
+            animation: 9.5s ShadowMoveLoopSec linear alternate infinite;
+        }
+
+        #seperate {
+            color: transparent;
+            -webkit-text-stroke: 0.2vw #FAFAFA; 
+            text-stroke: 0.2vw #FAFAFA;
+            font-size: 11.7vw;
+            animation: 9.5s ShadowMoveLoopSec linear alternate infinite;
+        }
+
+        #ms {
+            font-size: 4.5vw;
+            opacity: 0.5;
+        }
+
+        #description {
+            font-family: Heading;
+            text-align: center;
+            font-size: 1.5vw;
+            color: #FAFAFA;
+            z-index: 1;
+            margin-top: -5.5vw;
+            margin-bottom: 2vw;
+            transition: opacity 8s;
+        }
+
+        #return {
+            font-family: Heading;
+            position: fixed;
+            text-align: center;
+            bottom: 1em;
+            width: 100vw;
+            left: 0;
+            font-size: 1.2em;
+            color: #FAFAFA;
+            z-index: 1;
+            opacity: 0.1;
+        }
+
+        .active #return {
+            opacity: 0.8;
+            transition: 1s 0.7s opacity;
+        }
+
+        .key {
+            background-color: #FFF;
+            font-family: ABR;
+            font-size: 2vw;
+            display: inline-block;
+            width: 10vw;
+            height: 3vw;
+            text-align: center;
+            padding-bottom: 0.3vw;
+            box-shadow: 0px 0px 64px rgba(255,255,255,0.7);
+            color: #000;
+            line-height: 3.2vw;
+        }
+
+        .key2 {
+            background-color: #FFF;
+            font-family: ABR;
+            font-size: 2.75vw;
+            display: inline-block;
+            width: 8vw;
+            height: 4vw;
+            text-align: center;
+            padding-bottom: 0.3vw;
+            box-shadow: 0px 0px 64px rgba(255,255,255,0.7);
+            color: #000;
+            line-height: 3.2vw;
+        }
+
+        /* Starfield Canvas */
+        #starCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        .active #starCanvas {
+            opacity: 1;
+            transition: 2s 0.7s opacity;
+        }
+    </style>
+</head>
+<body>
+    <div id="colorlay"></div>
+    <canvas id="starCanvas"></canvas>
+
+    <div id="timeblock">
+        <div class="stack"><div class="key">AURORA</div> DISCONNECTED</div>
+        <div id="counter">
+            <span id="minutes"></span><span id="seperate">:</span><span id="seconds"></span><span id="ms"></span>
+        </div>
+    </div>
+
+    <!-- Addendum container -->
+    <div id="addendum">
+        Once this timer hits 0, Connections to Aurora will be made. After this happens, there will be a Maintenance to ensure a Safe connection
+    </div>
+    
+    <div id="description">until Aurora is reconnected</div>
+    <div id="return">Return</div>
+
+    <script>
+        // Set the target date for the countdown (example: 2025, March 5th, 12:00:00)
+        const targetDate = new Date("March 1, 2025 20:00:00").getTime();
+        
+        // Update the countdown every 10 milliseconds
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime(); // Get current time
+            const timeRemaining = targetDate - now; // Calculate time remaining
+
+            // If the countdown is finished, stop the interval
+            if (timeRemaining <= 0) {
+                setTimeout(function() {
+                    window.location.href = "https://www.example.com";
+                }, 3000); 
+
+                // Set a timeout of 5 seconds (5000 milliseconds)
+                clearInterval(timerInterval);
+                document.getElementById("counter").innerHTML = "???";
+                return;
+            }
+
+            // Calculate minutes, seconds, and milliseconds
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            const milliseconds = Math.floor((timeRemaining % 1000) / 10);
+
+            // Update the countdown display
+            document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+            document.getElementById("ms").textContent = String(milliseconds).padStart(2, '0');
+        }, 10);
+
+        // Activate the appearance of #timeblock and #addendum by adding the 'active' class
+        setTimeout(() => {
+            document.body.classList.add('active');
+        }, 500); // Delay for visual effect
+
+        // Activate the stack opacity with the 'booting' class
+        setTimeout(() => {
+            document.body.classList.add('booting');
+        }, 1000); // Delay for booting transition
+    </script>
+    <script>
+    
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Resize canvas to cover the entire window
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Get the user's position (this could be mouse position or a fixed point)
+    let userX = canvas.width / 2;
+    let userY = canvas.height / 2;
+
+    // Update user position with mouse (for dynamic movement)
+    canvas.addEventListener('mousemove', (event) => {
+        userX = event.clientX;
+        userY = event.clientY;
+    });
+
+    // Generate stars
+    const stars = [];
+    for (let i = 0; i < 200; i++) {
+        // Random initial position
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        
+        // Create a random speed and direction for the stars (increased speed range)
+        let angle = Math.atan2(y - userY, x - userX); // Calculate angle from user position
+        let speed = Math.random() * 3 + 1.5; // Random speed for faster stars
+        
+        stars.push({
+            x,
+            y,
+            angle,
+            speed,
+        });
+    }
+
+    function animateStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas for smoother animation
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.lineWidth = 2;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "rgba(255, 255, 255, 0.5)";
+
+        stars.forEach(star => {
+            // Move stars away from the user's position
+            star.x += Math.cos(star.angle) * star.speed;
+            star.y += Math.sin(star.angle) * star.speed;
+
+            // Draw the star as a line (not a dot)
+            let endX = star.x + Math.cos(star.angle) * 5; // Make the line longer
+            let endY = star.y + Math.sin(star.angle) * 5;
+
+            ctx.beginPath();
+            ctx.moveTo(star.x, star.y);
+            ctx.lineTo(endX, endY); // Draw line from the star's position
+            ctx.stroke();
+
+            // If the star goes off the canvas, reset it to a random position around the user's area
+            if (star.x < 0 || star.x > canvas.width || star.y < 0 || star.y > canvas.height) {
+                let angle = Math.random() * Math.PI * 2; // Random angle
+                let speed = Math.random() * 3 + 1.5; // Increased speed for faster stars
+                star.x = userX + Math.cos(angle) * 50; // Start near the user
+                star.y = userY + Math.sin(angle) * 50;
+                star.angle = angle;
+                star.speed = speed;
+            }
+        });
+
+        // Smooth the animation with requestAnimationFrame
+        requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+
+    </script>
+</body>
+</html>
